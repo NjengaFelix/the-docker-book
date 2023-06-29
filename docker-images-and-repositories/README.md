@@ -95,3 +95,42 @@ In the example above we have overriden the dockerfile by running the jar with a 
 If you really need to overwrite the entrypoint you can run docker with the --entrypoint flag
 
 - WORKDIR 
+
+`WORKDIR` is used to set the working directory for a container or a specific instruction.
+```
+#Setting a working directory for an instruction & container
+
+WORKDIR /opt/webapp/db
+RUN bundle install
+WORKDIR /opt/webapp
+ENTRYPOINT [ "rackup" ]
+```
+We can also override the working directory for a container
+```
+sudo docker run -ti -w /var/log ubuntu pwd
+/var/log
+```
+
+- ENV 
+
+ENV is used to set environment variables during image build
+```
+ENV RVM_PATH /home/rvm/
+```
+
+- VOLUME
+
+Used to add a volume to a container created using that specific image. Volumes are used for persistence and shared data storage.
+```
+VOLUME ["/opt/project"]
+```
+
+## Deleting an image
+Deleting a docker image locally
+```
+sudo docker rmi <image-name>
+```
+Deleting all docker images
+```
+ sudo docker rmi `docker images -a -q`
+```
